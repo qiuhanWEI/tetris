@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id = "canvasID"></canvas>
+<script type="text/javascript" src="Brick.js"></script>
+<script type="text/javascript" src="Panel.js"></script>
+<script>
+    window.onload = function () {
+        var p = Panel.createNew();
+        p.getRandomBrick();
+
+        var interval_id = null;
+        interval_id = setInterval(function () {
+            var b = p.currentList[0];
+            if (!b.moveDown()) {
+                if (p.GAME_OVER) {
+                    console.log("GAME OVER!");
+                    clearInterval(interval_id);
+                }
+            }
+        },500);
+
+        document.onkeydown = function (e) {
+            var currentBrick = p.currentList[0];
+            switch (e.keyCode) {
+                case 38:
+                    currentBrick.rotate();
+                    break;
+                case 40:
+                    currentBrick.moveDown();
+                    break;
+                case 37:
+                    currentBrick.moveLeft();
+                    break;
+                case 39:
+                    currentBrick.moveRight();
+                    break;
+                default: break;
+            }
+        }
+    }
+</script>
+</body>
+</html>
